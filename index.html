@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="https://fonts.googleapis.com/css?family=Archivo+Black|Libre+Baskerville:700&display=swap" rel="stylesheet">
+<head>
+
+<meta http-equiv="X-UA-Compatible" content="IE=9,chrome=1"/>
+<meta charset="utf-8"/>
+
+<h1 align="center">This is </h1>
+<h2 align="center">  
+  <span
+     class="randomName"
+     firstNameList=
+        '[ "Paavo","Pablo","Pace","Pacen","Pacey","Packer","Paco","Padarn","Padgett","Padma","Padraig","Paikea","Paisley","Paladin","Palden","Palmer","Panagiotis","Pancho","Panfilo","Pankaj","Panos","Paol","Paolo","Paora","Papasito","Parella","Paresh","Parindra","Paris","Park","Parka","Parker","Parkin","Parks","Parkus","Parminder","Parris","Parrish","Parry","Parson","Partab","Parth","Parwinder","Pascal","Pasco","Pascoe","Pascual","Pasha","Pasquale","Pasqualino","Pat","Patch","Patrice","Patricio","Patrick","Patrik","Patrizio","Patryk","Patsy","Patten","Patterson","Patton","Pavel","Pavlos","Pavol","Pawandeep","Pax","Paxon","Paxtin","Paxton","Payne","Paynter","Payson","Payton","Paz","Peak","Pearce","Pearl","Pearson","Peder","Pedro","Peer","Peerless","Peeta","Peetu","Pek","Peleg","Pelham","Pelle","Pellegrino","Peniel","Penley","Penn","Pennington","Penry","Pepe","Pepito","Per","Percival","Percy","Peregrine","Perez","Pericles","Perico","Perin","Perley","Pernell","Perrin","Perry","Perseus","Pershing","Pervis","Petar","Pete","Peter","Petr","Petrica","Petroc","Petros","Petrus","Petter","Peyton","Phaedonas","Phaedron","Phaethon","Phaeton","Pharaoh","Pharrell","Pharris","Phelan","Phibes","Phil","Phileas","Philemon","Philip","Philipp","Philippe","Philippos","Phillip","Phillipe","Phillips","Philo","Philomen","Philon","Phinean","Phineas","Phoebus","Phoenix","Phong","Pi","Pierce","Piercy","Pierluigi","Piero","Pierre","Piers","Pierson","Piet","Pietari","Pieter","Pietro","Pike","Pilot","Pilsen","Pim","Pinchas","Pinchus","Pink","Pio","Piotr","Pip","Piper","Pippin","Piran","Pirate","Pisa","Pius","Pizza","Pj","Placid","Placido","Plamen","Platon","Pleasant","Plutarco","Pluto","Poe","Poeple","Poindexter","Policarpo","Polk","Pollux","Polo","Pompeo","Poncho","Ponciano","Ponder","Pontus","Ponyboy","Porfirio","Porter","Poseidon","Potter","Povel","Powell","Powers","Prabhgun","Prabhjot","Pradeep","Pramesh","Pramod","Pranav","Pratham","Pratik","Praxedes","Prem","Prentice","Prentiss","Prescott","Presley","Press","Preston","Priam","Price","Priest","Primitivo","Primo","Primus","Prince","Princeton","Pritpal","Proctor","Profit","Proinsias","Prometheus","Promise","Prosper","Prospero","Prudencio","Pryce","Pryderi","Pryor","Ptolemy","Publius","Puck","Pulkit","Purl","Pwyll","Pylyp"]'></span>
+     Gao
+   </h2>
+
+<style>
+html{
+  font-family: 'Libre Baskerville', serif;
+  font-size: 30px;
+  padding: 1em;
+  color: #d1d1d1;
+}
+
+body {
+  padding: 3em;
+  background-color: #3c1c4d;
+  background-image: url("https://cdn.discordapp.com/attachments/430691654052085786/596016038097846400/pattern.jpg"
+    )
+}
+
+h1 {font-weight: 700; font-size: 1em; margin: 0;}
+h2 {font-weight: 700; font-size: 3.5em; margin: 0;}
+</style>
+
+<script>
+
+  function Timer(callback, delay) {
+    var timerId, start, remaining = delay;
+
+    this.pause = function() {
+        window.clearTimeout(timerId);
+        remaining -= Date.now() - start;
+    };
+
+    this.resume = function() {
+        start = Date.now();
+        window.clearTimeout(timerId);
+        timerId = window.setTimeout(callback, remaining);
+    };
+
+    this.resume();
+  }
+
+  function nameChange(el, firstName) {
+    this.firstName = firstName;
+    this.el = el;
+    this.nameIndex = Math.floor(Math.random() * (this.firstName.length));
+    this.txt = "";
+    this.running();
+    this.isDeleting = false;
+  };
+
+  var timer;
+
+  nameChange.prototype.running = function() {
+    var firstName = this.firstName[this.nameIndex];
+    var that = this;
+    var wait = Math.floor(Math.random() * (200 - 100 + 1)) + 100;
+
+    if (this.isDeleting) {
+      this.txt = firstName.substring(0, this.txt.length - 1);
+    } else {
+      this.txt = firstName.substring(0, this.txt.length + 1);
+    }
+
+    if (this.isDeleting) { wait = 40; }
+
+    if (!this.isDeleting && this.txt == firstName) {
+      wait = 1500;
+      this.isDeleting = true;
+    } else if (this.isDeleting && this.txt == '') {
+      wait = 700;
+      this.isDeleting = false;
+      this.nameIndex = Math.floor(Math.random() * (this.firstName.length));
+    }
+
+    this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+
+    timer = new Timer(function() {that.running();}, wait);
+
+  };
+
+  window.onload = function() {
+    var elements = document.getElementsByClassName('randomName');
+    var firstName = elements[0].getAttribute('firstNameList');
+    new nameChange(elements[0], JSON.parse(firstName));
+
+    var css = document.createElement("style");
+    css.type = "text/css";
+    css.innerHTML = ".randomName > .wrap { border-right: 0.02em solid #d1d1d1}";
+    document.body.appendChild(css);
+  };
+</script>
+
+
+</head>
+
+<body>
+
+<style>
+
+.button {
+  font-family: 'Archivo Black', sans-serif;
+  border-radius: 50em;
+  background-color: transparent;
+  border: 0.3em solid #d1d1d1;
+  color: #d1d1d1;
+  text-align: center;
+  font-size: 11px;
+  padding: 2em;
+  width: 9em;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin : 3em;
+  margin-bottom: 18em;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.button:focus {outline:0;}
+
+
+</style>
+
+</div>
+
+  <div align="center">
+  <button class="button" onclick = "window.open('F:/pgao/info/index.html')"><span>INFO </span></button>
+
+</div>
+
+<script>
+  var paused = false;
+
+  function stopTyping() {
+    if (!paused){
+      timer.pause();
+      paused = true;
+    } else {
+      timer.resume();
+      paused = false;
+    }
+  }
+</script>
+
+</body>
+
+<!-- play/pause -->
+<style>
+
+.play-pause {
+  color: #3c1c4d;
+  background-color: #d1d1d1;
+  width: 0.7em;
+  height: 0.7em;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  margin:0 auto;
+
+  /* Draw the 2 pause bars */
+  background-image: linear-gradient(
+    to right,
+    transparent 40%,
+    currentColor 40%,
+    currentColor 60%,
+    transparent 0
+  );
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  transition: background-size 0.15s;
+}
+
+.play-pause.paused {
+  background-size: 0 100%;
+}
+
+.play-pause::before,
+.play-pause::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background: currentColor;
+  transform: skew(90deg);
+  transform-origin: top left;
+  transition: transform 0.15s;
+}
+
+.play-pause::after {
+  transform-origin: bottom left;
+}
+
+.play-pause.paused::before {
+  transform: skew(64deg);
+}
+
+.play-pause.paused::after {
+  transform: skew(117deg);
+}
+
+.play-pause:focus {outline:0;}
+
+</style>
+
+<div class = "play-pause" onclick="stopTyping()"></div>
+
+<script>
+  document.querySelector(".play-pause").addEventListener("click", function() {
+  this.classList.toggle("paused");
+});
+</script>
+
+
+</html>
