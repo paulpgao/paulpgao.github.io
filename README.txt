@@ -1,1 +1,1 @@
-[pgao](pgao.name)
+[pgao](http://pgao.name)
