@@ -1,2 +1,1 @@
-pinglangao.github.io
-pgao.name
+[pgao](pgao.name)
